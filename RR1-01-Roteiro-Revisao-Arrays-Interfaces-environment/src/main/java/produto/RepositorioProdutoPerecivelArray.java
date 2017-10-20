@@ -42,8 +42,18 @@ public class RepositorioProdutoPerecivelArray {
 	 * @return
 	 */
 	private int procurarIndice(int codigo) {
-		// TODO Implement your code here
-		throw new UnsupportedOperationException("Not implemented yet!");
+		int indice = -1;
+		if (index != -1) {
+			boolean encontrou = false;
+			for (int i = 0; i < produtos.length; i++) {
+				if (produtos[i] != null && produtos[i].getCodigo() == codigo && !encontrou) {
+					indice = i;
+					encontrou = true;
+				}
+			}
+		}		
+		
+		return indice;
 	}
 
 	/**

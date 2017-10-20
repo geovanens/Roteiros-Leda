@@ -42,13 +42,15 @@ public class RepositorioProdutoNaoPerecivelArray {
 	 */
 	private int procurarIndice(int codigo) {
 		int indice = -1;
-		boolean encontrou = false;
-		for (int i = 0; i < produtos.length; i++) {
-			if (produtos[i] != null && produtos[i].getCodigo() == codigo && !encontrou) {
-				indice = i;
-				encontrou = true;
+		if (index != -1) {
+			boolean encontrou = false;
+			for (int i = 0; i < produtos.length; i++) {
+				if (produtos[i] != null && produtos[i].getCodigo() == codigo && !encontrou) {
+					indice = i;
+					encontrou = true;
+				}
 			}
-		}
+		}		
 		
 		return indice;
 	}
@@ -61,11 +63,13 @@ public class RepositorioProdutoNaoPerecivelArray {
 	 */
 	public boolean existe(int codigo) {
 		boolean existe = false;
-		boolean encontrou = false;
-		for (ProdutoNaoPerecivel produtoNaoPerecivel : produtos) {
-			if (produtoNaoPerecivel != null && produtoNaoPerecivel.getCodigo() == codigo && !encontrou) {
-				existe = true;
-				encontrou = true;
+		if (index != -1) {
+			boolean encontrou = false;
+			for (ProdutoNaoPerecivel produtoNaoPerecivel : produtos) {
+				if (produtoNaoPerecivel != null && produtoNaoPerecivel.getCodigo() == codigo && !encontrou) {
+					existe = true;
+					encontrou = true;
+				}
 			}
 		}
 		
@@ -76,18 +80,13 @@ public class RepositorioProdutoNaoPerecivelArray {
 	 * Insere um novo produto (sem se preocupar com duplicatas)
 	 */
 	public void inserir(ProdutoNaoPerecivel produto) {
-		boolean inseriu = false;
-		for (int i = 0; i< produtos.length; i++) {
-			if (produtos[i] == null && !inseriu) {
-				produtos[i] = produto;
-				inseriu = true;
-			}
-		}
-		
-		int size = produtos.length;
-		if (!inseriu) {
+		if (this.index == -1 || this.index == produtos.length - 1) {
 			extende();
 			inserir(produto);
+		}
+		else {
+			produtos[this.index+1] = produto;
+			this.index++;
 		}
 	}
 	
@@ -138,6 +137,7 @@ public class RepositorioProdutoNaoPerecivelArray {
 		for (int i = 0; i < produtos.length; i++) {
 			if (produtos[i] != null && produtos[i].getCodigo() == codigo && !removeu) {
 				removeu = true;
+				this.index--;
 				int j = i;
 				while (j < produtos.length && produtos[j] != null) {
 					produtos[j] = produtos[j+1];
