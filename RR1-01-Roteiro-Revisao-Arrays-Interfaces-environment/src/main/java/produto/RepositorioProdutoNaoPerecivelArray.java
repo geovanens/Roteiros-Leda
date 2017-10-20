@@ -86,18 +86,25 @@ public class RepositorioProdutoNaoPerecivelArray {
 		
 		int size = produtos.length;
 		if (!inseriu) {
-			duplica();
-			produtos[size+1] = produto;
+			extende();
+			inserir(produto);
 		}
 	}
 	
-	private void duplica() {
+	private void extende() {
 		int size = produtos.length;
-		ProdutoNaoPerecivel[] newProdutos = new ProdutoNaoPerecivel[2*size];
-		for (int i = 0; i < size; i++) {
-			newProdutos[i] = produtos[i];
+		if (size == 0) {
+			ProdutoNaoPerecivel[] newProdutos = new ProdutoNaoPerecivel[1];
+			this.produtos = newProdutos;
 		}
-		this.produtos = newProdutos;
+		else {
+			ProdutoNaoPerecivel[] newProdutos = new ProdutoNaoPerecivel[2*size];
+			for (int i = 0; i < size; i++) {
+				newProdutos[i] = produtos[i];
+			}
+			this.produtos = newProdutos;
+		}
+		
 		
 	}
 
@@ -109,7 +116,7 @@ public class RepositorioProdutoNaoPerecivelArray {
 	public void atualizar(ProdutoNaoPerecivel produto) {
 		boolean atualizou = false;
 		for (int i = 0; i < produtos.length; i++) {
-			if (produtos[i].getCodigo() == produto.getCodigo() && !atualizou) {
+			if (produtos[i] != null && produtos[i].getCodigo() == produto.getCodigo() && !atualizou) {
 				produtos[i] = produto;
 				atualizou = true;
 			}
@@ -127,8 +134,21 @@ public class RepositorioProdutoNaoPerecivelArray {
 	 * @param codigo
 	 */
 	public void remover(int codigo) {
-		// TODO Implement your code here
-		throw new UnsupportedOperationException("Not implemented yet!");
+		boolean removeu = false;
+		for (int i = 0; i < produtos.length; i++) {
+			if (produtos[i] != null && produtos[i].getCodigo() == codigo && !removeu) {
+				removeu = true;
+				int j = i;
+				while (j < produtos.length && produtos[j] != null) {
+					produtos[j] = produtos[j+1];
+					j++;
+				}
+				produtos[j-1] = null;
+			}
+		}
+		if (!removeu) {
+			throw new RuntimeException();
+		}
 	}
 
 	/**
@@ -139,8 +159,17 @@ public class RepositorioProdutoNaoPerecivelArray {
 	 * @return
 	 */
 	public ProdutoNaoPerecivel procurar(int codigo) {
-		// TODO Implement your code here
-		throw new UnsupportedOperationException("Not implemented yet!");
+		boolean encontrou = false;
+		ProdutoNaoPerecivel pnp = null;
+		for (ProdutoNaoPerecivel produtoNaoPerecivel : produtos) {
+			if (!encontrou && produtoNaoPerecivel != null && produtoNaoPerecivel.getCodigo() == codigo) {
+				pnp = produtoNaoPerecivel;
+			}
+		}
+		if (pnp != null) {
+			return pnp;
+		}
+		throw new RuntimeException();
 	}
 
 }
