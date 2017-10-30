@@ -14,7 +14,7 @@ package produto;
  * @author Adalberto
  *
  */
-public class RepositorioProdutoNaoPerecivelArray {
+public class RepositorioProdutoNaoPerecivelArray implements RepositorioProdutos {
 	/**
 	 * A estrutura (array) onde os produtos sao mantidos.
 	 */
@@ -41,16 +41,17 @@ public class RepositorioProdutoNaoPerecivelArray {
 	 * @return
 	 */
 	private int procurarIndice(int codigo) {
+		int i = 0;
 		int indice = -1;
-		if (index != -1) {
-			boolean encontrou = false;
-			for (int i = 0; i < produtos.length; i++) {
-				if (produtos[i] != null && produtos[i].getCodigo() == codigo && !encontrou) {
-					indice = i;
-					encontrou = true;
-				}
+		boolean encontrou = false;
+		while ((i <= index) && !encontrou) {
+			if (produtos[i].getCodigo() == codigo) {
+				indice = i;
+				encontrou = true;
 			}
-		}		
+			i++;
+		}
+			
 		
 		return indice;
 	}
@@ -62,48 +63,36 @@ public class RepositorioProdutoNaoPerecivelArray {
 	 * @return
 	 */
 	public boolean existe(int codigo) {
-		boolean existe = false;
-		if (index != -1) {
-			boolean encontrou = false;
-			for (ProdutoNaoPerecivel produtoNaoPerecivel : produtos) {
-				if (produtoNaoPerecivel != null && produtoNaoPerecivel.getCodigo() == codigo && !encontrou) {
-					existe = true;
-					encontrou = true;
-				}
-			}
-		}
-		
+		int indice = procurarIndice(codigo);
+		boolean existe = (indice != -1);
 		return existe;
 	}
+	
 
 	/**
 	 * Insere um novo produto (sem se preocupar com duplicatas)
 	 */
-	public void inserir(ProdutoNaoPerecivel produto) {
-		if (this.index == -1 || this.index == produtos.length - 1) {
-			extende();
-			inserir(produto);
+	public void inserir(Produto produto) {
+		if (this.index < produtos.length-2) {
+			produtos[++index] = (ProdutoNaoPerecivel) produto;
 		}
 		else {
-			produtos[this.index+1] = produto;
-			this.index++;
+			extende();
+			produtos[++index] = (ProdutoNaoPerecivel) produto;
 		}
 	}
 	
+	/**
+	 * Duplica o tamanho do array
+	 */
 	private void extende() {
 		int size = produtos.length;
-		if (size == 0) {
-			ProdutoNaoPerecivel[] newProdutos = new ProdutoNaoPerecivel[1];
-			this.produtos = newProdutos;
-		}
-		else {
-			ProdutoNaoPerecivel[] newProdutos = new ProdutoNaoPerecivel[2*size];
-			for (int i = 0; i < size; i++) {
-				newProdutos[i] = produtos[i];
-			}
-			this.produtos = newProdutos;
-		}
 		
+		ProdutoNaoPerecivel[] newProdutos = new ProdutoNaoPerecivel[2*size];
+		for (int i = 0; i < size; i++) {
+			newProdutos[i] = produtos[i];
+		}
+		this.produtos = newProdutos;
 		
 	}
 
@@ -112,16 +101,14 @@ public class RepositorioProdutoNaoPerecivelArray {
 	 * esteja no array. Note que, para localizacao, o código do produto será
 	 * utilizado.
 	 */
-	public void atualizar(ProdutoNaoPerecivel produto) {
-		boolean atualizou = false;
-		for (int i = 0; i < produtos.length; i++) {
-			if (produtos[i] != null && produtos[i].getCodigo() == produto.getCodigo() && !atualizou) {
-				produtos[i] = produto;
-				atualizou = true;
-			}
+	public void atualizar(Produto produto) {
+		int indice = this.procurarIndice(produto.getCodigo());
+		
+		if (indice != -1) {
+			produtos[indice] = (ProdutoNaoPerecivel) produto;
 		}
-		if (!atualizou) {
-			throw new RuntimeException();
+		else {
+			throw new RuntimeException("Produtos nao encontrado");
 		}
 	}
 
@@ -133,21 +120,18 @@ public class RepositorioProdutoNaoPerecivelArray {
 	 * @param codigo
 	 */
 	public void remover(int codigo) {
-		boolean removeu = false;
-		for (int i = 0; i < produtos.length; i++) {
-			if (produtos[i] != null && produtos[i].getCodigo() == codigo && !removeu) {
-				removeu = true;
-				this.index--;
-				int j = i;
-				while (j < produtos.length && produtos[j] != null) {
-					produtos[j] = produtos[j+1];
-					j++;
-				}
-				produtos[j-1] = null;
+		int indice = this.procurarIndice(codigo);
+		
+		if (indice != -1) {
+			while (indice < produtos.length && produtos[indice] != null) {
+				produtos[indice] = produtos[indice+1];
+				indice++;
 			}
+			produtos[indice] = null;
+			index--;
 		}
-		if (!removeu) {
-			throw new RuntimeException();
+		else {
+			throw new RuntimeException("Produtos nao encontrado");
 		}
 	}
 
@@ -158,18 +142,15 @@ public class RepositorioProdutoNaoPerecivelArray {
 	 * @param codigo
 	 * @return
 	 */
-	public ProdutoNaoPerecivel procurar(int codigo) {
-		boolean encontrou = false;
-		ProdutoNaoPerecivel pnp = null;
-		for (ProdutoNaoPerecivel produtoNaoPerecivel : produtos) {
-			if (!encontrou && produtoNaoPerecivel != null && produtoNaoPerecivel.getCodigo() == codigo) {
-				pnp = produtoNaoPerecivel;
-			}
+	public Produto procurar(int codigo) {
+		int indice = this.procurarIndice(codigo);
+		
+		if (indice != -1) {
+			return produtos[indice];
 		}
-		if (pnp != null) {
-			return pnp;
+		else {
+			throw new RuntimeException("Produtos nao encontrado");
 		}
-		throw new RuntimeException();
 	}
 
 }
