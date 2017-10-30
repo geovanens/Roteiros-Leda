@@ -1,4 +1,5 @@
 package sorting.simpleSorting;
+import util.Util;
 
 import sorting.AbstractSorting;
 
@@ -11,7 +12,12 @@ public class BubbleSort<T extends Comparable<T>> extends AbstractSorting<T> {
 
 	@Override
 	public void sort(T[] array, int leftIndex, int rightIndex) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not Implemented yet!");
+		for (int i = leftIndex; i <= rightIndex; i++) {
+			for (int j = i+1; j <= rightIndex; j++) {
+				if (array[i].compareTo(array[j]) == 1) {
+					Util.swap(array, i, j);
+				}
+			}
+		}
 	}
 }
