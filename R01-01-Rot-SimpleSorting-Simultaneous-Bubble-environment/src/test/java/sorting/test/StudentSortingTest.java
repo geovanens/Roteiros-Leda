@@ -2,6 +2,7 @@ package sorting.test;
 
 import java.util.Arrays;
 import sorting.simpleSorting.*;
+import sorting.variationsOfBubblesort.SimultaneousBubblesort;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -39,7 +40,7 @@ public class StudentSortingTest {
 	private void getImplementation() {
 		// TODO O aluno deve instanciar sua implementação abaixo ao invés de
 		// null
-		this.implementation = new InsertionSort<Integer>();
+		this.implementation = new BubbleSort<Integer>();
 	}
 
 	public void populaVetorTamanhoPar(Integer[] arrayPadrao) {
