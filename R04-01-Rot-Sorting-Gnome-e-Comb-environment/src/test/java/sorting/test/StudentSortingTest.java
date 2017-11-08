@@ -7,8 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import sorting.AbstractSorting;
-import sorting.linearSorting.CountingSort;
-import sorting.linearSorting.ExtendedCountingSort;
+import sorting.variationsOfBubblesort.CombSort;
 
 public class StudentSortingTest {
 
@@ -28,7 +27,6 @@ public class StudentSortingTest {
 				11, 18, 36 });
 		populaVetorRepetido(new Integer[] { 4, 9, 3, 4, 0, 5, 1, 4 });
 		populaVetorIgual(new Integer[] { 6, 6, 6, 6, 6, 6 });
-		
 
 		getImplementation();
 	}
@@ -41,7 +39,7 @@ public class StudentSortingTest {
 	private void getImplementation() {
 		// TODO O aluno deve instanciar sua implementação abaixo ao invés de
 		// null
-		this.implementation = new CountingSort();
+		this.implementation = new CombSort<>();
 	}
 
 	public void populaVetorTamanhoPar(Integer[] arrayPadrao) {
