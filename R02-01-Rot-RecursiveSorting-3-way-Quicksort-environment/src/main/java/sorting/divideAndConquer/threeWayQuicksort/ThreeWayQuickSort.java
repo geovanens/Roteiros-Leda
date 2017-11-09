@@ -25,8 +25,47 @@ public class ThreeWayQuickSort<T extends Comparable<T>> extends
 	 **/
 	@Override
 	public void sort(T[] array, int leftIndex, int rightIndex) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (array != null && leftIndex < rightIndex && leftIndex >= 0 && rightIndex < array.length && array.length != 0) {
+			int iPivot = partition(array, leftIndex, rightIndex);
+			int occu = occurrences(array, leftIndex, rightIndex);
+			sort(array, leftIndex, iPivot-occu);
+			sort(array, iPivot+1, rightIndex);
+		}
+	}
+	
+	private int partition(T[] array, int leftIndex, int rightIndex) {
+		T pivot = array[leftIndex];
+        int i = leftIndex;
+        
+        for (int j = leftIndex+1; j <= rightIndex; j++) {
+          if (array[j].compareTo(pivot) < 0) {
+            i += 1;
+            T aux = array[i];
+            array[i] = array[j];
+            array[j] = aux;
+          }
+          if (array[j].compareTo(pivot) == 0) {
+              T aux = array[i+1];
+              array[i+1] = array[j];
+              array[j] = aux;
+            }
+        }
+        T aux = array[i];
+        array[i] = array[leftIndex];
+        array[leftIndex] = aux;
+		return i;
+	}
+	
+	private int occurrences(T[] array, int leftIndex, int rightIndex) {
+		T pivot = array[leftIndex];
+		int ocorrencias = 1;
+		for (int i = leftIndex+1; i <= rightIndex; i++) {
+			if (array[i].compareTo(pivot) == 0) {
+				ocorrencias++;
+			}
+		}
+		return ocorrencias;
+		
 	}
 
 }

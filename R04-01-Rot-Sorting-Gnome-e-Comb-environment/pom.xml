@@ -116,7 +116,7 @@
 								qualified name = nome com o pacote) -->
 							<qualifiedNames>
 								<name>sorting.variationsOfBubblesort.CombSort</name>
-								<!-- name>sorting.simpleSorting.SelectionSort</name -->
+								<name>sorting.variationsOfBubblesort.GnomeSort</name>
 								<!-- name>sorting.simpleSorting.InsertionSort</name -->
 							</qualifiedNames>
 						</configuration>
