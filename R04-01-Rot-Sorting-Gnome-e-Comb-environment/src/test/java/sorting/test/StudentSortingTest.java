@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import sorting.AbstractSorting;
 import sorting.variationsOfBubblesort.CombSort;
+import sorting.variationsOfBubblesort.GnomeSort;
 
 public class StudentSortingTest {
 
