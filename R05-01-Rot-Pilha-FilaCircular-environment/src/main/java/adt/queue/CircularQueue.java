@@ -2,61 +2,82 @@ package adt.queue;
 
 public class CircularQueue<T> implements Queue<T> {
 
-   private T[] array;
-   private int tail;
-   private int head;
-   private int elements;
+	private T[] array;
+	private int tail;
+	private int head;
+	private int elements;
 
-   public CircularQueue(int size) {
-      array = (T[]) new Object[size];
-      head = -1;
-      tail = -1;
-      elements = 0;
-   }
+	public CircularQueue(int size) {
+		array = (T[]) new Object[size];
+		head = -1;
+		tail = -1;
+		elements = 0;
+	}
 
-   @Override
-   public void enqueue(T element) throws QueueOverflowException {
-      if (element != null) {
+	@Override
+	public void enqueue(T element) throws QueueOverflowException {
+		if (isFull()) {
+			throw new QueueOverflowException();
+		} 
+		else if (element != null) {
+			if (isEmpty()) {
+				this.head = 0;
+				this.tail = 0;
+				this.array[0] = element;
+			}
 
-         if (isFull()) {
-            throw new QueueOverflowException();
-         } else if (isEmpty()) {
-            this.head = 0;
-            this.tail = 0;
-            this.array[0] = element;
+			else {
+				int capacity = this.array.length;
+				this.tail = (this.tail + 1) % capacity;
+				this.array[this.tail] = element;
+			}
 
-         }
+			this.elements++;
 
-         else {
-            this.tail = this.array.length - 1 - this.elements;
-            this.array[this.tail] = element;
-         }
+		}
+	}
 
-         this.elements++;
+	@Override
+	public T dequeue() throws QueueUnderflowException {
+		if (isEmpty()) {
+			throw new QueueUnderflowException();
+		}
 
-      }
-   }
+		T value = this.array[this.head];
 
-   @Override
-   public T dequeue() throws QueueUnderflowException {
-      // TODO Auto-generated method stub
-      throw new UnsupportedOperationException("Not implemented yet!");
-   }
+		if (this.head == this.tail) {
+			this.head = -1;
+			this.tail = -1;
+		} else {
+			int capacity = this.array.length;
+			this.head = (this.head + 1) % capacity;
+		}
 
-   @Override
-   public T head() {
-      // TODO Auto-generated method stub
-      throw new UnsupportedOperationException("Not implemented yet!");
-   }
+		this.elements--;
+		return value;
+	}
 
-   @Override
-   public boolean isEmpty() {
-      return this.head == -1 && this.tail == -1;
-   }
+	@Override
+	public T head() {
+		if (isEmpty()) {
+			return null;
+		}
 
-   @Override
-   public boolean isFull() {
-      return this.elements == this.array.length - 1;
-   }
+		return this.array[this.head];
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return this.head == -1 && this.tail == -1;
+	}
+
+	@Override
+	public boolean isFull() {
+		int capacity = this.array.length;
+		if (capacity == 0) {
+			return true;
+		}
+		return (this.tail + 1) % capacity == this.head;
+	}
 
 }
