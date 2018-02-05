@@ -106,7 +106,6 @@ public class StudentBSTTest {
 		while (!tree.isEmpty()) {
 			tree.remove(tree.getRoot().getData());
 			assertEquals(--size, tree.size());
-			System.out.println(Arrays.toString(tree.order()));
 		}
 	}
 
