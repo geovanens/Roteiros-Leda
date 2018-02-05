@@ -1,16 +1,18 @@
 package adt.bst;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import adt.bst.BSTImpl;
+import adt.bst.extended.SortComparatorBSTImpl;
 import adt.bt.BTNode;
 
 public class StudentBSTTest {
 
-	private BSTImpl<Integer> tree;
+	private SortComparatorBSTImpl<Integer> tree;
 	private BTNode<Integer> NIL = new BTNode<Integer>();
 
 	private void fillTree() {
@@ -22,7 +24,7 @@ public class StudentBSTTest {
 
 	@Before
 	public void setUp() {
-		tree = new BSTImpl<>();
+		tree = new SortComparatorBSTImpl<Integer>( (o1, o2) -> o1 - o2 );
 	}
 
 	@Test
@@ -152,4 +154,19 @@ public class StudentBSTTest {
 		assertEquals(new Integer(-34), tree.search(-34).getData());
 		assertEquals(NIL, tree.search(2534));
 	}
+	
+	@Test
+	public void testReverseOrderAndSort() {
+		
+		fillTree();
+		
+		Integer[] reverseOrder = new Integer[] {232, 76, 67, 23, 12, 9, 6, 5, 2, 0, -34, -40};
+		
+		assertArrayEquals(reverseOrder, tree.reverseOrder());
+		
+		Integer[] newArray = {2, 15, 0, -1, 18};
+		tree.sort(newArray);
+		assertArrayEquals(new Integer[] {-1, 0, 2, 15, 18}, tree.order());
+	}
+	
 }

@@ -1,9 +1,6 @@
 package adt.bst;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
