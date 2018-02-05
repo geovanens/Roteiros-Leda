@@ -105,11 +105,6 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 		}
 		
 		return exit;
-		
-//		while (!node.getRight().isEmpty()) {
-//			node = (BSTNode<T>) node.getRight();
-//		}
-//		return node;
 	} 
 	
 	@Override
