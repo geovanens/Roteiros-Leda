@@ -109,18 +109,6 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements 
 		node.getLeft().setParent(node);
 		setChildParent(pivot);
 		
-//		BSTNode<T> y = (BSTNode<T>) node.getLeft();
-//
-//		if (isRoot(node)) {
-//			setRoot(y);
-//		}
-//
-//		y.setParent(node.getParent());
-//		node.setParent(y);
-//		node.setLeft(y.getRight());
-//		y.setRight(node);
-//		node.getLeft().setParent(node);
-//		setChildParent(y);
 	}
 
 	private void setChildParent(BSTNode<T> node) {
@@ -146,18 +134,6 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements 
 		node.getRight().setParent(node);
 		setChildParent(pivot);
 		
-//		BSTNode<T> y = (BSTNode<T>) node.getRight();
-//
-//		if (isRoot(node)) {
-//			setRoot(y);
-//		}
-//
-//		y.setParent(node.getParent());
-//		node.setParent(y);
-//		node.setRight(y.getLeft());
-//		y.setLeft(node);
-//		node.getRight().setParent(node);
-//		setChildParent(y);
 	}
 
 	@Override
