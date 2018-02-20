@@ -80,7 +80,7 @@ public class StudentAVLTest {
 	@Test
 	  public void testRemove2() {
 	    avl.insert(60);
-	    avl.insert(55);
+	    avl.insert(55); 
 	    avl.insert(91);
 	    avl.insert(9);
 	    avl.insert(12);

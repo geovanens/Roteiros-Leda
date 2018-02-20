@@ -99,33 +99,20 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements 
 
 	private void spinsRight(BSTNode<T> node) {
 		
-//		BSTNode<T> pivot = Util.rightRotation(node);
-//		
-//		if (isRoot(node)) {
-//			setRoot(pivot);
-//		}
-//		
-//		pivot.setParent(node.getParent());
-//		node.setParent(pivot);
-//		node.getLeft().setParent(node);
-//		setChildParent(pivot);
+		BSTNode<T> pivot = Util.rightRotation(node);
 		
-		BSTNode<T> pivot = (BSTNode<T>) node.getLeft();
-
 		if (isRoot(node)) {
 			setRoot(pivot);
 		}
-
+		
 		pivot.setParent(node.getParent());
 		node.setParent(pivot);
-		node.setLeft(pivot.getRight());
-		pivot.setRight(node);
 		node.getLeft().setParent(node);
 		setChildParent(pivot);
 	}
 
 	private void setChildParent(BSTNode<T> node) {
-		if (node.getParent() != null) {
+		if (node.getParent() != null) { 
 			if (node.getData().compareTo(node.getParent().getData()) > 0) {
 				node.getParent().setRight(node);
 			} else {
@@ -136,27 +123,14 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements 
 	}
 
 	private void spinsLeft(BSTNode<T> node) {
-//		BSTNode<T> pivot = Util.leftRotation(node);
-//		
-//		if (isRoot(node)) {
-//			setRoot(pivot);
-//		}
-//		
-//		pivot.setParent(node.getParent());
-//		node.setParent(pivot);
-//		node.getRight().setParent(node);
-//		setChildParent(pivot);
+		BSTNode<T> pivot = Util.leftRotation(node);
 		
-		BSTNode<T> pivot = (BSTNode<T>) node.getRight();
-
 		if (isRoot(node)) {
 			setRoot(pivot);
 		}
-
+		
 		pivot.setParent(node.getParent());
 		node.setParent(pivot);
-		node.setRight(pivot.getLeft());
-		pivot.setLeft(node);
 		node.getRight().setParent(node);
 		setChildParent(pivot);
 	}
@@ -279,18 +253,5 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements 
 			rebalance(parent);
 			parent = (BSTNode<T>) parent.getParent();
 		}
-	}
-
-	public static void main(String[] args) {
-		AVLTreeImpl<Integer> tree = new AVLTreeImpl<>();
-		tree.insert(60);
-		tree.insert(55);
-		tree.insert(91);
-		tree.insert(9);
-		tree.insert(12);
-
-		tree.remove(91);
-		System.out.println(tree.getRoot());
-
 	}
 }
