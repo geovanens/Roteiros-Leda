@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -74,4 +76,35 @@ public class StudentAVLTest {
 		assertTrue(avl.isEmpty());
 		
 	}
+	
+	@Test
+	  public void testRemove2() {
+	    avl.insert(60);
+	    avl.insert(55);
+	    avl.insert(91);
+	    avl.insert(9);
+	    avl.insert(12);
+
+	    avl.remove(-1);
+	    assertTrue(avl.getRoot().getData().equals(60));
+	    assertEquals(5, avl.size());
+	    assertArrayEquals(new Integer[] { 60, 12, 9, 55, 91 }, avl.preOrder());
+
+	    avl.remove(91);
+	    assertTrue(avl.getRoot().getData().equals(12));
+	    assertEquals(4, avl.size());
+	    assertArrayEquals(new Integer[] { 12, 9, 60, 55 }, avl.preOrder());
+	    avl.remove(12);
+	    assertTrue(avl.getRoot().getData().equals(55));
+	    assertArrayEquals(new Integer[] { 55, 9, 60 }, avl.preOrder());
+	    avl.remove(55);
+	    assertTrue(avl.getRoot().getData().equals(60));
+	    assertArrayEquals(new Integer[] { 60, 9 }, avl.preOrder());
+	    avl.remove(60);
+	    assertTrue(avl.getRoot().getData().equals(9));
+	    assertArrayEquals(new Integer[] { 9 }, avl.preOrder());
+	    avl.remove(9);
+	    assertArrayEquals(new Integer[] { }, avl.preOrder());
+	    assertTrue(avl.isEmpty());
+	  }
 }
