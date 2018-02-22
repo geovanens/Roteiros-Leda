@@ -79,6 +79,7 @@ public class AVLCountAndFillImpl<T extends Comparable<T>> extends
 		
 	}
 	
+	
 	@SuppressWarnings("unchecked")
 	public ArrayList<Integer> median_index(ArrayList<T> array) {
 		int size = array.size();
@@ -129,26 +130,4 @@ public class AVLCountAndFillImpl<T extends Comparable<T>> extends
 		
 		return arr;
 	}
-	
-	
-	public String rotations() {
-		return "RR - " + this.RRcount() + "\n" +
-				"LL - " + this.LLcount() + "\n" +
-				"RL - " + this.RLcount() + "\n" +
-				"LR - " + this.LRcount();
-	}
-	
-	public static void main(String[] args) {
-		
-		
-		AVLCountAndFillImpl<Integer> tree = new AVLCountAndFillImpl<>();
-		tree.insert(3);
-		Integer[] keys = {0,1,2};
-		tree.fillWithoutRebalance(keys);
-		System.out.println(tree.rotations());
-	}
-	
-	
-	
-
 }

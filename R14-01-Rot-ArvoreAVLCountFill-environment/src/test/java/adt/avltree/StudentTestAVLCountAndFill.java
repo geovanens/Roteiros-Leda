@@ -1,8 +1,6 @@
 package adt.avltree;
 
-import static org.junit.Assert.*;
-
-import java.util.Arrays;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,10 +29,6 @@ public class StudentTestAVLCountAndFill {
 
 	@Test
 	public void testLLcount() {
-//		assertEquals(6, tree1.LLcount());
-//		assertEquals(0, tree2.LLcount());
-//		assertEquals(0, tree3.LLcount());
-		
 		assertEquals(0, tree1.LLcount());
 		assertEquals(6, tree2.LLcount());
 		assertEquals(0, tree3.LLcount());
@@ -42,10 +36,6 @@ public class StudentTestAVLCountAndFill {
 
 	@Test
 	public void testRRcount() {
-//		assertEquals(0, tree1.RRcount());
-//		assertEquals(6, tree2.RRcount());
-//		assertEquals(0, tree3.RRcount());
-		
 		assertEquals(6, tree1.RRcount());
 		assertEquals(0, tree2.RRcount());
 		assertEquals(0, tree3.RRcount());

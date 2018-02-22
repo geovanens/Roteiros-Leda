@@ -183,21 +183,21 @@ public class AVLTreeImpl<T extends Comparable<T>> extends BSTImpl<T> implements
 			if (balance == 2) {
 				int newBalance = calculateBalance((BSTNode<T>) node.getLeft());
 				if (newBalance == 1) {
-					//caso 1 a arvore precisa de uma rotacao LL
+					//caso 1 a arvore está desbalanceada em LL
 					caso = 1;
 				}
 				else if (newBalance == -1) {
-					//caso 2 a arvore precisa de uma rotacao LR
+					//caso 2 a arvore está desbalanceada em LR
 					caso = 2;
 				}
 			}
 			else if (balance == -2) {
 				int newBalance = calculateBalance((BSTNode<T>) node.getRight());
 				if (newBalance == -1) {
-					//caso 3 a arvore precisa de uma rotacao RR
+					//caso 3 a arvore está desbalanceada em RR
 					caso = 3;
 				} else if (newBalance == 1) {
-					//caso 4 a arvore precisa de uma rotacao RL
+					//caso 4 a arvore está desbalanceada em RL
 					caso = 4;
 				}
 			}
